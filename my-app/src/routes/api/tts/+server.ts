@@ -6,7 +6,7 @@ import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/private'; // SvelteKit의 환경 변수 모듈
 
 // 1. Vercel 환경 변수에서 JSON 문자열을 가져옵니다.
-const credentialsJson = env.GOOGLE_CREDENTIALS_JSON;
+const credentialsJson = env.GOOGLE_APPLICATION_CREDENTIALS;
 
 if (!credentialsJson) {
 	throw new Error('GOOGLE_CREDENTIALS_JSON 환경 변수가 설정되지 않았습니다.');
