@@ -104,6 +104,7 @@
         if (currentAudio) {
             currentAudio.pause();
             currentAudio.currentTime = 0;
+            console.log("오디오 멈춤.");
         }
     };
 
