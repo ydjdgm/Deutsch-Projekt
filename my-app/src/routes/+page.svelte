@@ -91,6 +91,9 @@
                 moebiusText = script[i].text;
             }
             console.log("cur Script Index: ", i);
+        }else{
+            isStarted = false;
+            i = 0;
         }
     };
 
