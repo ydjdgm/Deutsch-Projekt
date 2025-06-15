@@ -93,6 +93,48 @@
             console.log("cur Script Index: ", i);
         }
     };
+
+    //tts 로직
+    let currentAudio: HTMLAudioElement | null = null;
+    const speak = async (textToSpeak: string) => {
+        // 만약 이전 오디오가 재생 중이라면 중지시킵니다.
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+        try {
+            // 우리가 만든 백엔드 API(/api/tts)에 POST 요청을 보냅니다.
+            const response = await fetch("/api/tts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text: textToSpeak }), // 보낼 텍스트
+            });
+            if (!response.ok) {
+                throw new Error(
+                    "백엔드에서 TTS 오디오를 가져오는 데 실패했습니다.",
+                );
+            }
+
+            // 서버가 보내준 JSON에서 audioContent(Base64 데이터)를 추출합니다.
+            const { audioContent } = await response.json();
+
+            if (audioContent) {
+                // Base64 오디오 데이터를 브라우저가 재생할 수 있는 오디오 소스로 만듭니다.
+                const audioSource = `data:audio/mp3;base64,${audioContent}`;
+
+                // 새 Audio 객체를 만들고 재생합니다.
+                currentAudio = new Audio(audioSource);
+                currentAudio.play();
+            }
+        } catch (error) {
+            console.error("speak 함수에서 에러 발생:", error);
+        }
+    };
+    $: if (isStarted && script[i]) {
+        speak(script[i].text);
+    }
 </script>
 
 <div class="relative w-screen h-screen overflow-hidden">

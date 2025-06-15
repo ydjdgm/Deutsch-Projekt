@@ -25,6 +25,7 @@
 	},
 	"dependencies": {
 		"@google-cloud/text-to-speech": "^6.1.0",
-		"daisyui": "^5.0.43"
+		"daisyui": "^5.0.43",
+		"dotenv": "^16.5.0"
 	}
 }
