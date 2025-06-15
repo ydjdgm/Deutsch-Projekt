@@ -83,28 +83,33 @@
     let i = 0;
 
     let moebiusText = "";
+    let currentAudio: HTMLAudioElement | null = null;
 
     const nextScript = () => {
+        stopCurrentAudio();
         if (i < script.length - 1) {
             i++;
             if (script[i].speaker == "M") {
                 moebiusText = script[i].text;
             }
             console.log("cur Script Index: ", i);
-        }else{
+        } else {
             isStarted = false;
             i = 0;
         }
     };
 
     //tts 로직
-    let currentAudio: HTMLAudioElement | null = null;
-    const speak = async (textToSpeak: string) => {
-        // 만약 이전 오디오가 재생 중이라면 중지시킵니다.
+    const stopCurrentAudio = () => {
         if (currentAudio) {
             currentAudio.pause();
             currentAudio.currentTime = 0;
         }
+    };
+
+    const speak = async (textToSpeak: string) => {
+        // 만약 이전 오디오가 재생 중이라면 중지시킵니다.
+        stopCurrentAudio();
         try {
             // 우리가 만든 백엔드 API(/api/tts)에 POST 요청을 보냅니다.
             const response = await fetch("/api/tts", {
@@ -135,7 +140,7 @@
             console.error("speak 함수에서 에러 발생:", error);
         }
     };
-    $: if (isStarted && script[i] && script[i].speaker == "M") {
+    $: if (isStarted && script[i] && script[i].speaker === "M") {
         speak(script[i].text);
     }
 </script>
