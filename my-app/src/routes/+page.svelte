@@ -77,7 +77,7 @@
         },
         {
             speaker: "I",
-            text: "Was als Interview mit einem verlorenen Genie begann, endet als… Apokalypse. Ob Möbius verrückt ist oder der einzige Vernünftige in einer verrückt gewordenen Welt, muss jeder für sich entscheiden. Aber seine Warnung hallt nach. Rebecca Stern, für „Exit Code“.",
+            text: "Was als Interview mit einem verlorenen Genie begann, endet als… Apokalypse. Ob Möbius verrückt ist oder der einzige Vernünftige in einer verrückt gewordenen Welt, muss jeder für sich entscheiden. Aber seine Warnung hallt nach. Yodun Kim, für „Exit Code“.",
         },
     ];
     let i = 0;
@@ -109,10 +109,9 @@
     };
 
     const speak = async (textToSpeak: string) => {
-        // 만약 이전 오디오가 재생 중이라면 중지시킵니다.
         stopCurrentAudio();
         try {
-            // 우리가 만든 백엔드 API(/api/tts)에 POST 요청을 보냅니다.
+            // 백엔드 API(/api/tts)에 POST 요청을 보냅니다.
             const response = await fetch("/api/tts", {
                 method: "POST",
                 headers: {
@@ -126,14 +125,14 @@
                 );
             }
 
-            // 서버가 보내준 JSON에서 audioContent(Base64 데이터)를 추출합니다.
+            // 서버가 보내준 JSON에서 audioContent(Base64 데이터) 추출.
             const { audioContent } = await response.json();
 
             if (audioContent) {
-                // Base64 오디오 데이터를 브라우저가 재생할 수 있는 오디오 소스로 만듭니다.
+                // Base64 오디오 데이터를 브라우저가 재생할 수 있는 오디오 소스로 변환.
                 const audioSource = `data:audio/mp3;base64,${audioContent}`;
 
-                // 새 Audio 객체를 만들고 재생합니다.
+                // 새 Audio 객체를 만들고 재생.
                 currentAudio = new Audio(audioSource);
                 currentAudio.play();
             }
