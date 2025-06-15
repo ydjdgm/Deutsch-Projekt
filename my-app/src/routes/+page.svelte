@@ -145,7 +145,7 @@
             transition:fade={{ duration: 500 }}
         >
             <h1 class="text-white font-bold text-9xl">
-                Ein Interview mit Möbius
+                -Ein Interview mit Möbius-
             </h1>
             <h1 class="text-white text-6xl">Der große KI-Entwickler</h1>
             <button class="btn btn-outline btn-primary" on:click={Start}
