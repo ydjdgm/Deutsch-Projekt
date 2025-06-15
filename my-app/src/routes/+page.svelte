@@ -132,7 +132,7 @@
             console.error("speak 함수에서 에러 발생:", error);
         }
     };
-    $: if (isStarted && script[i]) {
+    $: if (isStarted && script[i] && script[i].speaker == "M") {
         speak(script[i].text);
     }
 </script>
@@ -186,7 +186,7 @@
             <hr class="my-3 border-gray-600" />
             <p class="text-white text-2xl">
                 {#key moebiusText}
-                    <Typewriter interval={10}>
+                    <Typewriter interval={5}>
                         <p>{moebiusText}</p>
                     </Typewriter>
                 {/key}
