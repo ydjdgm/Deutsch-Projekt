@@ -27,7 +27,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const ttsRequest = {
 		input: { text: text },
-		voice: { languageCode: 'de-DE', name: 'de-DE-Wavenet-F' },
+		voice: { languageCode: 'de-DE', name: 'de-DE-Chirp3-HD-Charon' },
 		audioConfig: { audioEncoding: 'MP3' as const }
 	};
 
